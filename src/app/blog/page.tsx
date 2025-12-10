@@ -1,146 +1,146 @@
-'使用客户端'
+'use client'
 
-进口从“下一个/链接”导入链接链接来自进口
-进口从"dayjs"导入dayjsdayjs来自进口"dayjs"导入dayjsdayjs来自
-进口从进口汇入weekOfYearweekOfYear来自weekOfYear
-进口从“运动/反应”导入进口运动}{运动运动从'动作/反应'
+import Link from 'next/link'
+import dayjs from 'dayjs'
+import weekOfYear from 'dayjs/plugin/weekOfYear'
+import { motion } from 'motion/react'
 
-dayjs.延伸(weekOfYear)延伸(weekOfYear)
-进口从进口汇入{useCallback、useEffect、useMemo、useRef、useStateuseCallback{useCallback，useEffect，useMemo，useRef，useState useEffect来自useMemo
-进口从进口汇入{吐司吐司{吐司}from从...起
-进口从“进口/常数"导入{animation_DELAY，INIT_DELAY}导入{animation_DELAY，INIT_DELAY}{从...…起'@/consts'{Consts'来自'@/consts'
-进口从"进口/SVG/短线...起
-进口从“进口/挂钩/use-blog-index"导入{useBlogIndex，类型BlogIndexItemuseBlogIndex"导入"导入{useBlogIndex，类型BlogIndexItemuseBlogIndex，类型BlogIndexItem
-进口从“进口/挂钩/使用-读取-物品”导入{/hooks/us电子阅读文章"导入{useReadArticles}来自从……起
-进口从“进口/SVG/Juejin.JuejinSVGfrom从...起
-进口从“进口从“进口从“进口/挂钩//hooks/use-auth"导入{useAuthStore}来自从……起
-进口从"进口/app/(homeuseConfigStore/store/config-store"导入{useConfigStore从……起{/store/config-store"导入{useConfigStore}
-进口从“进口/Lib/file-utils"导入{readFileAsTextreadFileAsText"导入"导入{readFileAsText}来自从……起readFileAsText}来自从……起
-进口从“进口/Lib/utils"导入{Cncn"导入"导入{CN}来自从...起CN}from从……起
-进口从"./服务/批处理-进口-博客"导入{batchDeleteBlogsbatchDeleteBlogs{batchDeleteBlogs}from从...起
-进口从"透明反应"导入进口检查}导入{{检查从'lucide-react'
+dayjs.extend(weekOfYear)
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { toast } from 'sonner'
+import { ANIMATION_DELAY, INIT_DELAY } from '@/consts'
+import ShortLineSVG from '@/svgs/short-line.svg'
+import { useBlogIndex, type BlogIndexItem } from '@/hooks/use-blog-index'
+import { useReadArticles } from '@/hooks/use-read-articles'
+import JuejinSVG from '@/svgs/juejin.svg'
+import { useAuthStore } from '@/hooks/use-auth'
+import { useConfigStore } from '@/app/(home)/stores/config-store'
+import { readFileAsText } from '@/lib/file-utils'
+import { cn } from '@/lib/utils'
+import { batchDeleteBlogs } from './services/batch-delete-blogs'
+import { Check } from 'lucide-react'
 
-TypeType DisplayMode=类型displayMode='天'|'周'|'月''天'|'年'|'月'|'年'
+type DisplayMode = 'day' | 'week' | 'month' | 'year'
 
-出口导出默认函数blogpage(){默认默认功能()blogpage
-常量组件，加载}=项目()Const=装载items=useBlogIndex}=useBlogIndex
-常量ConstisRead}=isRead()常数={=useReadArticles}=useReadArticles
-常量ConstisAuth，setPrivateKey}=isAuth()常量=setPrivateKeyisAuth=useAuthStore}=useAuthStore
-常量ConstsiteContent}=siteContent()常数={=useConfigStore}=useConfigStore
-常量hideEditButton=站点内容。hideEditButton？？falseconsthideEditButton=站点内容。hideEditButton？？
+export default function BlogPage() {
+	const { items, loading } = useBlogIndex()
+	const { isRead } = useReadArticles()
+	const { isAuth, setPrivateKey } = useAuthStore()
+	const { siteContent } = useConfigStore()
+	const hideEditButton = siteContent.hideEditButton ?? false
 
-Const keyInputRef=useRef<HTMLInputElement>keyInputRefnull)无效的=useRef<HTMLInputElement>keyInputRef=Const=useRef<HTMLInputElement>keyInputRef=无效的<HTMLInputElement>(Const无效的
-常数ConsteditMode，setEditMode]=EditMode(假的)常数=useState=useStatesetEditModeeditMode=useState](=假的useState=useState
-ConstConsteditableItems，setEditableItems]=editableItems=useState]<BlogIndexItem<<BlogIndexItem<editableItems>setEditableItems]=
-常数ConstelectedSugs，setSelectedSugs]=selectedSugs<Set<string>>setSelectedSlugs新Set))线>>setSelectedSlugs新Set())线>>setSelectedSugs新Set<设定<string>>[新的设置setSelectedSlugs]新的设置setSelectedSlugs]=useState<新的设置setSelectedSugs新set=useState<设定<string>>>>
-Const[保存，setSaving]=useState(假的)Const[储蓄，setSaving]=useState(假的)[保存，setSaving]=useState(假的)Const[储蓄，setSaving]=useState(假的)
-ConstConstdisplayMode，setDisplayMode[=useState<<显示模式>>displayMode'年')
+	const keyInputRef = useRef<HTMLInputElement>(null)
+	const [editMode, setEditMode] = useState(false)
+	const [editableItems, setEditableItems] = useState<BlogIndexItem[]>([])
+	const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set())
+	const [saving, setSaving] = useState(false)
+	const [displayMode, setDisplayMode] = useState<DisplayMode>('year')
 
-useEffect(()=>{
-如果(！EditMode如果if！EditMode！EditMode如果if！EditMode如果！EditMode如果if！EditMode！EditMode如果if！EditMode！EditMode如果if！EditMode如果
-			setEditableItems(项目)
+	useEffect(() => {
+		if (!editMode) {
+			setEditableItems(items)
 		}
-}，[项目，editMode])}，[项目，editMode])
+	}, [items, editMode])
 
-常量displayItems=editMode？editableItems：项const displayItems=editMode？editableItems：项
+	const displayItems = editMode ? editableItems : items
 
-康斯康斯特ConstgroupedItems，groupKeys，getGroupLabelgroupedItems，groupKeys，getGroupLabel}=groupedItems(()=>groupKeys(()=>getGroupLabel
-constorted=Const...displayItems已排序=种类((a、b)...displayItems新日期(b。种类).getTime一个b.日期)-b()b。日期b.日期b.日期b.日期b.日期.日期)(((=>新的新的getTime日期getTime((constb.日期()=>新的getTime日期getTime=[())
+	const { groupedItems, groupKeys, getGroupLabel } = useMemo(() => {
+		const sorted = [...displayItems].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-Const组=已排序。减少(Constgrouped=已排序。已排序。减少(
-(ACC，项目)=>(ACC, 项)=>{
-let键：字符串let键：string
-let标签：字符串let标签：string
-常数日期=daysjs(项。日期)常数=dayjs=日期(=dayjs
+		const grouped = sorted.reduce(
+			(acc, item) => {
+				let key: string
+				let label: string
+				const date = dayjs(item.date)
 
-开关(显示模式开关开关显示模式显示模式开关开关displayMode开关显示模式开关开关显示模式显示模式开关开关显示模式显示模式开关开关displayMode开关
-案例“天”：case案例：
-钥匙=日期。格式('YYYY-MM-DD')日期。格式('YYYY-MM-DD')
-标签=日期。格式('YYYY年MM月DD日')格式('YYYY年MM月DD日')
-打破
-案例'周':
-Const周=日期。周()
-键=`${日期。格式('YYYY')}-w${周。toString().padStart(2, '0')}`
-标签=`${日期。格式('YYYY')}年第${周}周`
-打破
-案例'月':
-钥匙=日期。格式('YYYY-MM')
-标签=日期。格式('YYYYYYYY年MM月')
-打破
-案例'年':
-默认:
-钥匙=日期。格式('YYYY')
-标签=日期。格式('YYYY年')
-打破
+				switch (displayMode) {
+					case 'day':
+						key = date.format('YYYY-MM-DD')
+						label = date.format('YYYY年MM月DD日')
+						break
+					case 'week':
+						const week = date.week()
+						key = `${date.format('YYYY')}-W${week.toString().padStart(2, '0')}`
+						label = `${date.format('YYYY')}年第${week}周`
+						break
+					case 'month':
+						key = date.format('YYYY-MM')
+						label = date.format('YYYY年MM月')
+						break
+					case 'year':
+					default:
+						key = date.format('YYYY')
+						label = date.format('YYYY年')
+						break
 				}
 
-如果(！ACC[钥匙]) {
-ACC[钥匙]={ 项目: [], 标签 }
+				if (!acc[key]) {
+					acc[key] = { items: [], label }
 				}
-ACC[钥匙].项目.推(项)
-返回ACC
+				acc[key].items.push(item)
+				return acc
 			},
-			{}作为记录作为记录作为记录作为记录
-)
+			{} as Record<string, { items: BlogIndexItem[]; label: string }>
+		)
 
-Const键=对象。键(分组的).种类((一个，b)=>对象。键(分组的).种类((一个，b)=>{
+		const keys = Object.keys(grouped).sort((a, b) => {
 			// 按时间倒序排序
-			如果 (displayMode==='周') {
-				//周格式：YYYY-WW
-				Const [年份a, weekA]=a.分离('-W').地图(数量)
-				Const [年份b, weekB]=b.分离('-W').地图(数量)
-				如果 (yeara！==yearB) 返回年份B-年份A
-				返回weekB-weekA
+			if (displayMode === 'week') {
+				// 周格式：YYYY-WW
+				const [yearA, weekA] = a.split('-W').map(Number)
+				const [yearB, weekB] = b.split('-W').map(Number)
+				if (yearA !== yearB) return yearB - yearA
+				return weekB - weekA
 			}
-			返回b.locale比较(一个)
+			return b.localeCompare(a)
 		})
 
-返回{
-			groupedItems：已分组，
-			groupKeys：键，
-			getGroupLabel: (钥匙：线)=>已分组[钥匙]?.标签||键
+		return {
+			groupedItems: grouped,
+			groupKeys: keys,
+			getGroupLabel: (key: string) => grouped[key]?.label || key
 		}
-	}, [displayItems，displayMode])
+	}, [displayItems, displayMode])
 
-ConstelectedCount=selectedSugs。大小
-ConstbuttonText=isAuth？'保存'：'导入密钥'
+	const selectedCount = selectedSlugs.size
+	const buttonText = isAuth ? '保存' : '导入密钥'
 
-ConstoggleEditMode=useCallback(()=>{
-		如果 (EditMode) {
-			setEditMode(假的)
-			setEditableItems(项目)
-			setSelectedSlugs(新的设置())
-		}其他{
-			setEditableItems(项目)
-			setEditMode(正确)
+	const toggleEditMode = useCallback(() => {
+		if (editMode) {
+			setEditMode(false)
+			setEditableItems(items)
+			setSelectedSlugs(new Set())
+		} else {
+			setEditableItems(items)
+			setEditMode(true)
 		}
-	}, [EditMode，项目])
+	}, [editMode, items])
 
-ConstoggleSelect=useCallback((鼻涕虫：线)=>{
-		setSelectedSlugs(上一个=>{
-Const下一个=新的设置(上一个)
-			如果 (下一个。有(鼻涕虫)) {
-下一个。删除(鼻涕虫)
-			} 其他 {
-下一个。添加(鼻涕虫)
+	const toggleSelect = useCallback((slug: string) => {
+		setSelectedSlugs(prev => {
+			const next = new Set(prev)
+			if (next.has(slug)) {
+				next.delete(slug)
+			} else {
+				next.add(slug)
 			}
-			返回下一个
+			return next
 		})
 	}, [])
 
 	// 全选所有文章
-	ConsthandleSelectAll=useCallback(()=>{
-		setSelectedSlugs(新的设置(editableItems。地图(项=>项目。鼻涕虫)))
+	const handleSelectAll = useCallback(() => {
+		setSelectedSlugs(new Set(editableItems.map(item => item.slug)))
 	}, [editableItems])
 
 	// 全选/取消全选某个时间维度分组
-	ConsthandleSelectGroup=useCallback(
-		(groupKey：string)=>{
-			Const 组=groupedItems[groupKey]
-			如果 (！组) 返回
+	const handleSelectGroup = useCallback(
+		(groupKey: string) => {
+			const group = groupedItems[groupKey]
+			if (!group) return
 
 			// 检查该分组是否所有文章都已选中
-			Const allSelected=group。项目.每一个(项=>selectedSugs。有(项。鼻涕虫))
+			const allSelected = group.items.every(item => selectedSlugs.has(item.slug))
 
 			setSelectedSlugs(prev => {
 				const next = new Set(prev)
