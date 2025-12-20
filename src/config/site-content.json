@@ -1,11 +1,11 @@
 {
 	"meta": {
-		"title": "YYsuni",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端 UI 更新代码仓库。",
-		"username": "Suni"
+		"title": "秋",
+		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端",
+		"username": "秋"
 	},
 	"theme": {
-		"colorBrand": "#de4331",
+		"colorBrand": "#288BF7",
 		"colorPrimary": "#4E3F42",
 		"colorSecondary": "#7b888e",
 		"colorBrandSecondary": "#FCC841",
@@ -15,12 +15,12 @@
 		"colorArticle": "#ffffffcc"
 	},
 	"backgroundColors": [
-		"#FCC841",
-		"#DFEFFC",
-		"#DEDE92",
-		"#DE4331",
-		"#FE9750",
-		"#FCC841"
+		"#F50785",
+		"#23E32D",
+		"#DE40F2",
+		"#ADEA4E",
+		"#1A360C",
+		"#1D4AD6"
 	],
 	"artImages": [
 		{
@@ -44,21 +44,14 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "https://github.com/qiuxing-a",
 			"label": "Github",
 			"order": 3
 		},
 		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
-			"order": 2
-		},
-		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "3539955835@qq.com",
 			"label": "",
 			"order": 1
 		}
