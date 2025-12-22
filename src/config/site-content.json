@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"title": "秋",
-		"description": "YYsuni 的个人博客，记录前端开发、探索、笔记。前端",
+		"description": "秋的个人博客，记录前端开发、探索、笔记。前端",
 		"username": "秋"
 	},
 	"theme": {
@@ -56,9 +56,9 @@
 			"order": 1
 		}
 	],
-	"clockShowSeconds": false,
+	"clockShowSeconds": true,
 	"summaryInContent": false,
-	"isCachePem": false,
+	"isCachePem": true,
 	"hideEditButton": false,
 	"enableCategories": true,
 	"currentHatIndex": 3,
